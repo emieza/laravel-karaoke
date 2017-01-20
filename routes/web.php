@@ -12,5 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/llista/crea', function () {
+	return view('llista.crea');
+});
+
+Route::get('/llistes', function () {
+	return view('llistes');
+});
+
+Route::get('/llista/{llista}', function ($llista) {
+	return view( 'llista.mostra', array("llista"=>$llista) );
+});
+
+Route::get('/vota/{tema}', function ($tema) {
+    return view( 'llista.vota', array("tema"=>$tema) );
+});
+
