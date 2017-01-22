@@ -24,13 +24,13 @@
                     </a>
                 </li>
                 <li{{ Request::is('llista*') && !Request::is('llista/crea')? ' class=active' : ''}}>
-                    <a href="{{url('/llista/1')}}">
+                    <a href="{{url('/llista')}}/{{$llista}}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         La meva llista
                     </a>
                 </li>
-                <li{{ Request::is('llista/crea') ? ' class=active' : ''}}>
-                    <a href="{{url('/llista/crea')}}">
+                <li{{ Request::is('llista/crea*') ? ' class=active' : ''}}>
+                    <a href="{{url('/llista/crea')}}/{{$llista}}">
                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                         Nou tema
                     </a>

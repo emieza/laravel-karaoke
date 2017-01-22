@@ -12,17 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home')->with("llista",0);
 });
 
 // Mostra llistes de temes de Karaoke
 Route::get('/llistes', function () {
-	return view('llistes');
+	return view('llistes')->with("llista",0);;
 });
 
 // Crea una nova llista de Karaoke
 Route::get('/crea', function () {
-	return view('crea');
+	return view('crea')->with("llista",0);;
 });
 
 // Crea un nou item a una llista existent
