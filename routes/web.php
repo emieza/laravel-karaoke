@@ -15,19 +15,28 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/llista/crea', function () {
-	return view('llista.crea');
-});
-
+// Mostra llistes de temes de Karaoke
 Route::get('/llistes', function () {
 	return view('llistes');
 });
 
+// Crea una nova llista de Karaoke
+Route::get('/crea', function () {
+	return view('crea');
+});
+
+// Crea un nou item a una llista existent
+Route::get('/llista/crea/{llista}', function ($llista) {
+	return view('llista.crea',array("llista"=>$llista));
+});
+
+// Mostra llista
 Route::get('/llista/{llista}', function ($llista) {
 	return view( 'llista.mostra', array("llista"=>$llista) );
 });
 
+// Vota tema
 Route::get('/vota/{tema}', function ($tema) {
-    return view( 'llista.vota', array("tema"=>$tema) );
+    return view( 'vota', array("tema"=>$tema) );
 });
 
