@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('home')->with("llista",0);
 });
 
+Route::resource("llista","LlistaController");
+
+Route::resource("tema","TemaController");
+
+
+/*
 // Mostra llistes de temes de Karaoke
 Route::get('/llistes', function () {
 	return view('llistes')->with("llista",0);;
@@ -39,4 +45,4 @@ Route::get('/llista/{llista}', function ($llista) {
 Route::get('/vota/{tema}', function ($tema) {
     return view( 'vota', array("tema"=>$tema) );
 });
-
+*/
