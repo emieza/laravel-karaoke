@@ -19,7 +19,6 @@ Route::resource("llista","LlistaController");
 
 Route::resource("tema","TemaController");
 
-
 /*
 // Mostra llistes de temes de Karaoke
 Route::get('/llistes', function () {
