@@ -18,11 +18,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li{{ Request::is('llistes*') && !Request::is('llista/crea')? ' class=active' : ''}}>
-                    <a href="{{url('/llistes')}}">
+                    <a href="{{url('/llista')}}">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         Totes les llistes
                     </a>
                 </li>
+                @if( isset($llista) )
                 <li{{ Request::is('llista*') && !Request::is('llista/crea')? ' class=active' : ''}}>
                     <a href="{{url('/llista')}}/{{$llista}}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -35,6 +36,7 @@
                         Nou tema
                     </a>
                 </li>
+                @endif
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

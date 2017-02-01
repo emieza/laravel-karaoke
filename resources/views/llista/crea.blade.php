@@ -3,16 +3,16 @@
 
 @section('contingut')
 
-<h1>Llista {{$llista}}</h1>
+<h1>Nova llista de Karaoke</h1>
 
-<h2>Afegeix nou tema</h2>
+<p>Crea la teva llista perquè els amics puguin afegir temes per cantar a la superparty!</p> 
 
 <form method="post">
-	Tema:<input type="text" name="tema" placeholder="Temazo que cantaràs..." />
+	Titol:<input type="text" name="titol" placeholder="El nom de la festa..." />
 	<br>
-	Nom:<input type="text" name="nom" placeholder="El meu nom o noms dels cantants" />
+	Lloc:<input type="text" name="lloc" placeholder="Ubicació de la festa..." />
 	<br>
-	URL:<input type="text" name="url" placeholder="Enllaç a Youtube o Vimeo" />
+	Organitzador:<input type="text" name="organitzador" placeholder="El teu nom" />
 	<br>
 	Comentaris:
 	<textarea name="comentaris" placeholder="Explica'ns alguna cosa">

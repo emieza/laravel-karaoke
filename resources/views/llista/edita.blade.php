@@ -3,7 +3,7 @@
 
 @section('contingut')
 
-<h1>Edita tema</h1>
+<h1>Edita llista</h1>
 ...
 
 @endsection
