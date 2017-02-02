@@ -16,7 +16,8 @@ class LlistaController extends Controller
     public function index()
     {
         //
-        return view('llista.index');
+        $llistes = Llista::all();
+        return view('llista.index')->with("llistes",$llistes);
     }
 
     /**
@@ -108,5 +109,13 @@ class LlistaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // 
+    public function cerca(Request $request) {
+        //
+        $llistes = Llista::where( "titol", "like", "%".$request->cercatext."%" )->get();
+        return view('llista.index', array("llistes"=>$llistes,
+                    "cercatext"=>$request->cercatext) );
     }
 }

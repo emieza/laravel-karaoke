@@ -13,9 +13,10 @@
 
 <p>Cerca la llista de la teva festa:</p>
 
-<form action="">
-	<label for="titol">Títol</label>
-	<input name="titol" type="text" />
+<form method="post" action="{{url('/cerca')}}">
+	{{ csrf_field() }}
+	<label for="cercatext">Títol</label>
+	<input name="cercatext" type="text" />
 	<p>o bé</p>
 	<label for="codi">Codi</label>
 	<input name="codi" type="text" />

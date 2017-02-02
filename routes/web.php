@@ -15,12 +15,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-/*
-Route::resource("llista","LlistaController");
-
-Route::resource("tema","TemaController");
-*/
-
 // Crea una nova llista de Karaoke
 Route::get('/llista/crea', "LlistaController@create");
 Route::post('/llista/crea', "LlistaController@store");
@@ -39,4 +33,10 @@ Route::get('/llista/{llista}/crea', function ($llista) {
 Route::get('/vota/{tema}', function ($tema) {
     return view( 'vota', array("tema"=>$tema) );
 });
+
+Route::get('/cerca', function() {
+	return redirect("/");
+});
+
+Route::post('/cerca', "LlistaController@cerca");
 
