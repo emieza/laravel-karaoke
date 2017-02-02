@@ -55,7 +55,8 @@ class LlistaController extends Controller
             $llista->comentaris = $request->comentaris;
             $llista->email = $request->email;
             $llista->save();
-            return ("<a href='/llista/".$llista->id."'>OK. ID llista=".$llista->id." :)</a>");
+            //return ("<a href='/llista/".$llista->id."'>OK. ID llista=".$llista->id." :)</a>");
+            return redirect('/llista/'.$llista->id);
         } else
             // falten dades
             return redirect('/llista/crea');

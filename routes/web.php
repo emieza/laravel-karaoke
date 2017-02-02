@@ -19,15 +19,13 @@ Route::get('/', function () {
 Route::get('/llista/crea', "LlistaController@create");
 Route::post('/llista/crea', "LlistaController@store");
 
-// Mostra llistes de temes de Karaoke
+// Mostra llistes de Karaoke
 Route::get('/llista', "LlistaController@index");
 // Mostra els temes d'una llista
 Route::get('/llista/{llista}', "LlistaController@show");
 
 // Crea un nou item a una llista existent
-Route::get('/llista/{llista}/crea', function ($llista) {
-	return view('llista.crea',array("llista"=>$llista));
-});
+Route::get('/llista/{id}/crea', "TemaController@create");
 
 // Vota tema: TODO: amb API??
 Route::get('/vota/{tema}', function ($tema) {

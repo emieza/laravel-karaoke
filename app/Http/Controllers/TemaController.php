@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Llista;
 
 class TemaController extends Controller
 {
@@ -21,9 +22,11 @@ class TemaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $llista = Llista::find($id);
+        return view('tema.crea',array("llista"=>$llista));
     }
 
     /**
