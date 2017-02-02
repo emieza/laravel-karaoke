@@ -3,20 +3,22 @@
 
 @section('contingut')
 
-<h1>Llista de temes</h1>
+<h1>Llista: {{$llista->titol}}</h1>
+<p>Lloc: {{$llista->lloc}}</p>
+<p>Organitza: {{$llista->organitzador}}</p>
 
-<p>Llista de temes pendents:</p>
+<h2>Propers temes:</h2>
 <ul>
-	<li>uno</li>
-	<li>dos</li>
-	<li>...</li>
+	@foreach ($cua as $tema)
+		<li>{{$tema->titol}}</li>
+	@endforeach
 </ul>
 
-<p>Llista de temes fets. Vota'ls!!</p>
+<h2>Temes fets. Vota'ls!!</h2>
 <ul>
-	<li>uno</li>
-	<li>dos</li>
-	<li>...</li>
+	@foreach ($fets as $tema)
+		<li>{{$tema->titol}}</li>
+	@endforeach
 </ul>
 
 @endsection

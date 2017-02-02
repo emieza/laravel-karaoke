@@ -22,6 +22,7 @@ class CreaLlistaITemaTaules extends Migration
             $table->string("titol");
             $table->string("lloc");
             $table->string("organitzador");
+            $table->string("email");
             $table->text("comentaris");
             $table->timestamps();
         });

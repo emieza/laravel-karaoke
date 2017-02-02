@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Llista;
+use App\Tema;
 
 class LlistaController extends Controller
 {
@@ -14,6 +16,7 @@ class LlistaController extends Controller
     public function index()
     {
         //
+        return view('llista.index');
     }
 
     /**
@@ -24,6 +27,7 @@ class LlistaController extends Controller
     public function create()
     {
         //
+        return view('llista.crea');
     }
 
     /**
@@ -35,6 +39,25 @@ class LlistaController extends Controller
     public function store(Request $request)
     {
         //
+        if( $request->has("titol") && $request->has("lloc")
+            && $request->has("organitzador") && $request->has("email")
+            && $request->has("email2")
+        ) {
+            // hi son tots els camps
+            if( $request->email != $request->email2 )
+                return ("els correus no coincideixen :(");
+            // tot ok, avanti
+            $llista = new Llista();
+            $llista->titol = $request->titol;
+            $llista->lloc = $request->lloc;
+            $llista->organitzador = $request->organitzador;
+            $llista->comentaris = $request->comentaris;
+            $llista->email = $request->email;
+            $llista->save();
+            return ("<a href='/llista/".$llista->id."'>OK. ID llista=".$llista->id." :)</a>");
+        } else
+            // falten dades
+            return redirect('/llista/crea');
     }
 
     /**
@@ -46,6 +69,11 @@ class LlistaController extends Controller
     public function show($id)
     {
         //
+        $llista = Llista::find($id);
+        $cua = Tema::all();
+        $fets = Tema::all();
+        return view("llista.mostra", array("llista"=>$llista,
+            "cua"=>$cua, "fets"=>$fets ));
     }
 
     /**
