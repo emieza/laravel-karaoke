@@ -33,6 +33,7 @@ class CreaLlistaITemaTaules extends Migration
             $table->string("cantants");
             $table->string("tema");
             $table->string("video");
+            $table->boolean("fet");
             $table->text("comentaris");
             $table->timestamps();
         });

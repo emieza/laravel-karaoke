@@ -21,14 +21,14 @@ Route::resource("llista","LlistaController");
 Route::resource("tema","TemaController");
 */
 
+// Crea una nova llista de Karaoke
+Route::get('/llista/crea', "LlistaController@create");
+Route::post('/llista/crea', "LlistaController@store");
+
 // Mostra llistes de temes de Karaoke
 Route::get('/llista', "LlistaController@index");
 // Mostra els temes d'una llista
 Route::get('/llista/{llista}', "LlistaController@show");
-
-// Crea una nova llista de Karaoke
-Route::get('/llista/crea', "LlistaController@create");
-Route::post('/llista/crea', "LlistaController@store");
 
 // Crea un nou item a una llista existent
 Route::get('/llista/{llista}/crea', function ($llista) {
