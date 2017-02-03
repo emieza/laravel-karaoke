@@ -23,6 +23,8 @@ Route::post('/llista/crea', "LlistaController@store");
 Route::get('/llista', "LlistaController@index");
 // Mostra els temes d'una llista
 Route::get('/llista/{llista}', "LlistaController@show");
+// administra llista
+Route::get('/llista/{llista}/admin', "LlistaController@admin");
 
 // Crea un nou item a una llista existent
 Route::get('/llista/{id}/crea', "TemaController@create");

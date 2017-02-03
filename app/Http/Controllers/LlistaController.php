@@ -72,10 +72,20 @@ class LlistaController extends Controller
     {
         //
         $llista = Llista::find($id);
-        $cua = Tema::all();
-        $fets = Tema::all();
+        $cua = Tema::where("fet",false)->get();
+        $fets = Tema::where("fet",true)->get();
         return view("llista.mostra", array("llista"=>$llista,
-            "cua"=>$cua, "fets"=>$fets ));
+            "cua"=>$cua, "fets"=>$fets, "admin"=>false ));
+    }
+
+    public function admin($id)
+    {
+        //
+        $llista = Llista::find($id);
+        $cua = Tema::where("fet",false)->get();
+        $fets = Tema::where("fet",true)->get();
+        return view("llista.mostra", array("llista"=>$llista,
+            "cua"=>$cua, "fets"=>$fets, "admin"=>true ));
     }
 
     /**
