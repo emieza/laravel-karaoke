@@ -14,7 +14,7 @@
 	<br>
 	Tema:<input type="text" name="tema" placeholder="Títol del vostre tema" />
 	<br>
-	Vídeo:<input type="url" name="url" placeholder="Link al vídeo de Youtube o Vimeo" />
+	Vídeo:<input type="url" name="video" placeholder="Link al vídeo de Youtube o Vimeo" />
 	<br>
 	Comentaris:
 	<textarea name="comentaris" placeholder="Explica'ns alguna cosa"></textarea>

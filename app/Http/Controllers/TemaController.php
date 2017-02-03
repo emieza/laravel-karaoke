@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Llista;
+use App\Tema;
 
 class TemaController extends Controller
 {
@@ -35,9 +36,26 @@ class TemaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         // processa creació
+        if( $request->has("cantants") && $request->has("tema") &&
+            $request->has("video") )
+        {
+            $tema = new Tema();
+            $tema->cantants = $request->cantants;
+            $tema->tema = $request->tema;
+            $tema->video = $request->video;
+            $tema->comentaris = "";
+            if( $request->has("comentaris") )
+                $tema->comentaris = $request->comentaris;
+            $tema->fet = false;
+            $tema->llista_id = $id;
+            $tema->save();
+            return redirect("/llista/$id");
+        }
+        // si arriba aqui es que falten dades
+        return redirect("/llista/$id/crea");
     }
 
     /**
