@@ -26,6 +26,7 @@ Route::get('/llista/{llista}', "LlistaController@show");
 
 // Crea un nou item a una llista existent
 Route::get('/llista/{id}/crea', "TemaController@create");
+Route::post('/llista/{id}/crea', "TemaController@store");
 
 // Vota tema: TODO: amb API??
 Route::get('/vota/{tema}', function ($tema) {

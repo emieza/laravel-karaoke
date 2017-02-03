@@ -37,7 +37,7 @@ class TemaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // processa creació
     }
 
     /**
