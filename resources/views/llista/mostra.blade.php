@@ -29,10 +29,29 @@
 	@foreach ($fets as $tema)
 		<li class="list-group-item">
 			<b>{{$tema->tema}}</b> a càrrec de {{$tema->cantants}}
-			<button class="btn btn-primary" onclick="">M'agrada</button>
+			<button class="btn btn-primary" onclick="likeIt(this);"><span class="glyphicon glyphicon-thumbs-up"></span> M'agrada</button>
 		</li>
 	@endforeach
 </ul>
+<script>
+	var likeIt = function(elem){
+		var oldClassList = elem.className.split(/\s+/);
+		var newClassList = '';
+		for (var i = 0; i < oldClassList.length; i++) {
+		    if (oldClassList[i] === 'btn-primary') { // LIKE
+		    	newClassList += 'btn-success ';
+		    	// TODO - Persistent like
+		    }
+		    else if (oldClassList[i] === 'btn-success') { // UNLIKE
+		    	classList += 'btn-primary ';
+		    	// TODO - Persistent unlike
+		    }
+		    else newClassList += oldClassList[i] + ' ';
+		}
+		elem.className = newClassList;
+		return false;
+	}
+</script>
 @endif
 
 @endsection
