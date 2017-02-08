@@ -14,10 +14,10 @@
 <h2>Propers temes:</h2>
 <ul class="list-group">
 	@foreach ($cua as $tema)
-		<li class="list-group-item">
+		<li class="list-group-item" id="tema{{$tema->id}}">
 			<b>{{$tema->tema}}</b> a càrrec de <b>{{$tema->cantants}}</b>
 			@if( $admin )
-				<button class="btn btn-warning" onclick="">Fet!</button>
+				<button class="btn btn-warning" onclick="temaFet({{$tema->id}})">Fet!</button>
 			@endif
 		</li>
 	@endforeach
@@ -27,12 +27,13 @@
 <h2>Temes fets. Vota'ls!!</h2>
 <ul class="list-group">
 	@foreach ($fets as $tema)
-		<li class="list-group-item">
+		<li class="list-group-item" style="visible">
 			<b>{{$tema->tema}}</b> a càrrec de {{$tema->cantants}}
 			<button class="btn btn-primary" onclick="likeIt(this);"><span class="glyphicon glyphicon-thumbs-up"></span> M'agrada</button>
 		</li>
 	@endforeach
 </ul>
+@endif
 <script>
 	var likeIt = function(elem){
 		var oldClassList = elem.className.split(/\s+/);
@@ -41,18 +42,21 @@
 		    if (oldClassList[i] === 'btn-primary') { // LIKE
 		    	newClassList += 'btn-success ';
 		    	// TODO - Persistent like
-		    }
-		    else if (oldClassList[i] === 'btn-success') { // UNLIKE
-		    	classList += 'btn-primary ';
+		    } else if (oldClassList[i] === 'btn-success') { // UNLIKE
+		    	newClassList += 'btn-primary ';
 		    	// TODO - Persistent unlike
-		    }
-		    else newClassList += oldClassList[i] + ' ';
+		    } else newClassList += oldClassList[i] + ' ';
 		}
 		elem.className = newClassList;
 		return false;
-	}
+	};
+	var temaFet = function(id){
+		$.get('/api/fet/'+id, function( data ) {
+			console.log(data);
+		  if(data === 'OK') $('#tema'+id).slideUp();
+		});
+	};
 </script>
-@endif
 
 @endsection
 
