@@ -44,20 +44,3 @@ Route::post('/cerca', "LlistaController@cerca");
 
 
 
-use App\Tema;
-
-Route::get('/api/fet/{id}', function($id) {
-	try {
-		$tema = Tema::findOrFail($id);
-		if( $tema ) {
-			$tema->fet = true;
-			$tema->save();
-			return "OK";
-		}
-		return "not found";		
-	}
-	catch (Exception $e) {
-		return "ERROR $id";
-	}
-});
-
