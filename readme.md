@@ -28,6 +28,6 @@ $ touch db.sqlite
 $ php artisan migrate
 $ php artisan serve
 ```
-Visitar http://localhost:8000 ...et voilà!
+Visitar http://localhost:8000 ...et voilà! :) :)
 
 
