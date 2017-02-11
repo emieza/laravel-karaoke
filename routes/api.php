@@ -52,12 +52,14 @@ Route::get('/vota/{id}', function(Request $request, $id) {
 		$ip = $request->ip();
 		$tema = Tema::find($id);
 		// si ja esta votat aquest tema des d'aquesta ip no el deixem tornar a afegir
-		$nvots = Vot::where("tema_id",$id)->where("ip",$ip)->get()->count();
-		if( $nvots ) {
-			$vot = Vot::where("tema_id",$id)->where("ip",$ip)->delete();
+		$votat = Vot::where("tema_id",$id)->where("ip",$ip)->get()->count();
+		if( $votat ) {
+			$votat = Vot::where("tema_id",$id)->where("ip",$ip)->delete();
+			$nvots = Vot::where("tema_id",$id)->get()->count();
 			return response()->json([
 						"status" => "OK",
 						"vot" => false,
+						"nvots" => $nvots,
 						"message" => "Estat actual = NO votat"
 					]);
 		}
@@ -67,9 +69,11 @@ Route::get('/vota/{id}', function(Request $request, $id) {
 		$vot->ip = $ip;
 		$vot->comentaris = "";
 		$vot->save();
+		$nvots = Vot::where("tema_id",$id)->get()->count();
 		return response()->json([
 					"status" => "OK",
 					"vot" => true,
+					"nvots" => $nvots,
 					"message" => "Estat actual = votat"
 				]);
 	} catch (Exception $e) {
