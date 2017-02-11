@@ -19,19 +19,19 @@
             <ul class="nav navbar-nav">
                 <li{{ Request::is('llistes*') && !Request::is('llista/crea')? ' class=active' : ''}}>
                     <a href="{{url('/llista')}}">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         Totes les llistes
                     </a>
                 </li>
                 @if( isset($llista) )
                 <li{{ Request::is('llista*') && !Request::is('llista/crea')? ' class=active' : ''}}>
-                    <a href="{{url('/llista')}}/{{$llista}}">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    <a href="{{url('/llista')}}/{{$llista->id}}">
+                        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
                         La meva llista
                     </a>
                 </li>
                 <li{{ Request::is('llista/crea*') ? ' class=active' : ''}}>
-                    <a href="{{url('/llista/crea')}}/{{$llista}}">
+                    <a href="{{url('/llista')}}/{{$llista->id}}/crea">
                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                         Nou tema
                     </a>

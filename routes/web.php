@@ -23,9 +23,9 @@ Route::post('/llista/crea', "LlistaController@store");
 // Mostra llistes de Karaoke
 Route::get('/llista', "LlistaController@index");
 // Mostra els temes d'una llista
-Route::get('/llista/{llista}', "LlistaController@show");
+Route::get('/llista/{id}', "LlistaController@show");
 // administra llista
-Route::get('/llista/{llista}/admin', "LlistaController@admin");
+Route::get('/llista/{id}/admin', "LlistaController@admin");
 
 // Crea un nou item a una llista existent
 Route::get('/llista/{id}/crea', "TemaController@create");

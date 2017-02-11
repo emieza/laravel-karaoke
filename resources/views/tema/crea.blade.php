@@ -3,7 +3,7 @@
 
 @section('contingut')
 
-<h1>Nova llista de Karaoke</h1>
+<h1>Nou tema de Karaoke</h1>
 
 <p>Crea la teva llista perquè els amics puguin afegir temes per cantar a la superparty!</p> 
 

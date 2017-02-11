@@ -23,16 +23,26 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/fet/{id}', function($id) {
 	try {
-		$tema = Tema::findOrFail($id);
+		$tema = Tema::find($id);
 		if( $tema ) {
 			$tema->fet = true;
 			$tema->save();
-			return "OK";
+			return response()->json([
+					"status" => "OK",
+					"fet" => true,
+					"message" => "tema marcat com a fet"
+				]);
 		}
-		return "not found";		
+		return response()->json([
+				"status" => "ERROR",
+				"message" => "tema no trobat"
+			]);
 	}
 	catch (Exception $e) {
-		return "ERROR $id";
+		return response()->json([
+					"status" => "ERROR",
+					"message" => $e->getMessage()
+				]);
 	}
 });
 
@@ -42,17 +52,30 @@ Route::get('/vota/{id}', function(Request $request, $id) {
 		$ip = $request->ip();
 		$tema = Tema::find($id);
 		// si ja esta votat aquest tema des d'aquesta ip no el deixem tornar a afegir
-		$vot = Vot::where("tema_id",$id)->where("ip",$ip)->get()->count();
-		if( $vot )
-			return "ERROR: ja has votat aquest tema";
+		$nvots = Vot::where("tema_id",$id)->where("ip",$ip)->get()->count();
+		if( $nvots ) {
+			$vot = Vot::where("tema_id",$id)->where("ip",$ip)->delete();
+			return response()->json([
+						"status" => "OK",
+						"vot" => false,
+						"message" => "Estat actual = NO votat"
+					]);
+		}
 		// creem vot i l'afegim a la BD
 		$vot = new Vot();
 		$vot->tema_id = $tema->id;
 		$vot->ip = $ip;
 		$vot->comentaris = "";
 		$vot->save();
-		return "OK";	
+		return response()->json([
+					"status" => "OK",
+					"vot" => true,
+					"message" => "Estat actual = votat"
+				]);
 	} catch (Exception $e) {
-		return "ERROR";
+		return response()->json([
+					"status" => "ERROR",
+					"message" => $e->getMessage()
+				]);
 	}
 });
