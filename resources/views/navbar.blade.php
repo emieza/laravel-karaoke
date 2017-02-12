@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 @if( isset($llista) )
-                <li{{ Request::is('llista*') && !Request::is('llista/crea')? ' class=active' : ''}}>
+                <li{{ Request::is('llista/*') && !Request::is('llista/crea')? ' class=active' : ''}}>
                     <a href="{{url('/llista')}}/{{$llista->id}}">
                         <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
                         La meva llista
@@ -41,10 +41,25 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                @if( Auth::check() )
+                    <!-- estrany link al logout, ha estat canviat a un POST per motius de seguretat -->
+                    <a href="" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        Sortida
+                        <form id="logout-form" 
+                                action="{{ url('/logout') }}" 
+                            method="POST" 
+                            style="display: none;">
+                                        {{ csrf_field() }}
+                        </form>
+                    </a>
+                @else
                     <a href="{{url('/login')}}">
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                         Usuaris
                     </a>
+                @endif
                 </li>
             </ul>
         </div>

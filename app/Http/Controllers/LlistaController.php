@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Llista;
 use App\Tema;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User;
 
 class LlistaController extends Controller
@@ -15,10 +17,18 @@ class LlistaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $llistes = Llista::all();
+        if( Auth::check() ) {
+            // logat: mostrem les pròpies llistes separades
+            $email = Auth::user()->email;
+            $mylists = Llista::where("email",$email)->get();
+            return view('llista.index')->with("llistes",$llistes)
+                    ->with("mylists",$mylists);
+        }
+        // no logat
         return view('llista.index')->with("llistes",$llistes);
     }
 
@@ -150,4 +160,5 @@ class LlistaController extends Controller
         return view('llista.index', array("llistes"=>$llistes,
                     "cercatext"=>$request->cercatext) );
     }
+    
 }

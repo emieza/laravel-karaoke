@@ -18,6 +18,10 @@
 			<b>{{$tema->tema}}</b> a càrrec de <b>{{$tema->cantants}}</b>
 			@if( $admin )
 				<button class="btn btn-warning" onclick="temaFet({{$tema->id}})">Fet!</button>
+				<br>
+				<div style="position:relative;height:0;padding-bottom:75.0%"><iframe src="{{$tema->embedurl()}}" width="480" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
+				pasted
+				<div style="position:relative;height:0;padding-bottom:75.0%"><iframe src="https://www.youtube.com/embed/CdfPDKgCOcQ?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
 			@endif
 		</li>
 	@endforeach

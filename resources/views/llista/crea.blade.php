@@ -21,8 +21,7 @@
 	Confirma email:<input type="email" name="email2" placeholder="Repeteix el teu correu" />
 	<br>
 	Comentaris:
-	<textarea name="comentaris" placeholder="Explica'ns alguna cosa">
-	</textarea>
+	<textarea name="comentaris" placeholder="Explica'ns alguna cosa"></textarea>
 	<br>
 	<input type="submit" name="submit" value="Envia">
 </form>

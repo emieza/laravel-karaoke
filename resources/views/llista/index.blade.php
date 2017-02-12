@@ -3,7 +3,16 @@
 
 @section('contingut')
 
-<h2>Cerca la teva llista</h2>
+@if( Auth::check() && isset($mylists) )
+<h2>Les meves llistes</h2>
+<ul class="list-group">
+@foreach ( $mylists as $llista )
+	<li class="list-group-item"><a href="{{url('/llista')}}/{{$llista->id}}">{{$llista->titol}} (Lloc: {{$llista->lloc}} , Organtiza: {{$llista->organitzador}})</a></li>
+@endforeach
+</ul>
+@endif
+
+<h2>Cerca una llista</h2>
 <form action="/cerca" method="post">
 	{{ csrf_field() }}
 	@if( isset($cercatext) )
@@ -16,9 +25,9 @@
 
 <h2>Resultats de la cerca:</h2>
 
-<ul>
+<ul class="list-group">
 @foreach ( $llistes as $llista )
-	<li><a href="{{url('/llista')}}/{{$llista->id}}">{{$llista->titol}} (Organtiza: {{$llista->organitzador}})</li>
+	<li class="list-group-item"><a href="{{url('/llista')}}/{{$llista->id}}">{{$llista->titol}} (Organtiza: {{$llista->organitzador}})</a></li>
 @endforeach
 </ul>
 

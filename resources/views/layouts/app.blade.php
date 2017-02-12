@@ -36,7 +36,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <span class="glyphicon glyphicon-music"></span>
+                        Karaoke Jolgorio
                     </a>
                 </div>
 
