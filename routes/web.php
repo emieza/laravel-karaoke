@@ -43,4 +43,8 @@ Route::get('/cerca', function() {
 Route::post('/cerca', "LlistaController@cerca");
 
 
+// Afegides pel make:auth
+
+Auth::routes();
+Route::get('/home', 'HomeController@index');
 

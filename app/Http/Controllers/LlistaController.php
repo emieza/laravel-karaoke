@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Llista;
 use App\Tema;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Auth\User;
 
 class LlistaController extends Controller
 {
@@ -55,7 +57,26 @@ class LlistaController extends Controller
             $llista->comentaris = $request->comentaris;
             $llista->email = $request->email;
             $llista->save();
-            //return ("<a href='/llista/".$llista->id."'>OK. ID llista=".$llista->id." :)</a>");
+            // Creem usuari sense pass (no pot entrar) per si vol entrar dp
+            $user = User::where("email",$llista->email)->get()->count();
+            if( !$user ) {
+                $user = new User();
+                $user->name = $llista->organitzador;
+                $user->email = $llista->email;
+                $user->password = "";
+                $user->save();
+            }
+
+            // TODO: crear admin token per no piratejar la llista admin
+            // enviem missatge per admin link
+            Mail::send("emails.adminlink", [ 'llista' => $llista ],
+                    function($m) use ($llista) {
+                        $m->from("enric@jolgorio.tk" , "Jolgorio Karaokes");
+                        $m->to($llista->email, $llista->organitzador);
+                        $m->subject("Nova llista de karaoke: administració");
+                    }
+                );
+            // TODO: enviar 2n email amb el link de la festa pels convidats
             return redirect('/llista/'.$llista->id);
         } else
             // falten dades

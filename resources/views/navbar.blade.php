@@ -41,9 +41,9 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="{{url('busca')}}">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        Tancar sessió
+                    <a href="{{url('/login')}}">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                        Usuaris
                     </a>
                 </li>
             </ul>

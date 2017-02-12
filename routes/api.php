@@ -83,3 +83,4 @@ Route::get('/vota/{id}', function(Request $request, $id) {
 				]);
 	}
 });
+
