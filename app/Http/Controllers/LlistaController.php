@@ -81,8 +81,10 @@ class LlistaController extends Controller
             // enviem missatge per admin link
             Mail::send("emails.adminlink", [ 'llista' => $llista ],
                     function($m) use ($llista) {
-                        $m->from("enric@jolgorio.tk" , "Jolgorio Karaokes");
-                        $m->to($llista->email, $llista->organitzador);
+                        $from_email = env( "MAIL_FROM_ADDRESS", "webmaster@karaokexample.com" );
+                        $from_name = env( "MAIL_FROM_NAME", "Karaoke Jolgorio" );
+                        $m->from( $from_email , $from_name );
+                        $m->to( $llista->email, $llista->organitzador );
                         $m->subject("Nova llista de karaoke: administració");
                     }
                 );
