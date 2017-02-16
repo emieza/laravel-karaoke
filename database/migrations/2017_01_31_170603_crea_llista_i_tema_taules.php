@@ -29,7 +29,7 @@ class CreaLlistaITemaTaules extends Migration
 
         Schema::create('temes', function(Blueprint $table) {
             $table->increments("id");
-            $table->integer("llista_id");
+            $table->integer("llista_id")->unsigned();
             $table->string("cantants");
             $table->string("tema");
             $table->string("video");
@@ -45,7 +45,7 @@ class CreaLlistaITemaTaules extends Migration
 
         Schema::create('vots', function(Blueprint $table) {
             $table->increments("id");
-            $table->integer("tema_id");
+            $table->integer("tema_id")->unsigned();
             $table->ipAddress("ip");
             $table->text("comentaris");
             $table->timestamps();
