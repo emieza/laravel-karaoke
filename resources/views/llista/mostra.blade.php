@@ -33,31 +33,32 @@
 	@foreach ($fets as $tema)
 		<li class="list-group-item" style="visible">
 			<b>{{$tema->tema}}</b> a càrrec de {{$tema->cantants}}
-			<button class="btn btn-primary" onclick="likeIt(this);"><span class="glyphicon glyphicon-thumbs-up"></span> M'agrada</button>
+			<button class="btn btn-primary" onclick="likeIt(this,{{$tema->id}});"><span class="glyphicon glyphicon-thumbs-up"></span> M'agrada</button>
+			<span>Total vots: <span id="vots{{$tema->id}}"></span></span>
 		</li>
 	@endforeach
 </ul>
 @endif
 <script>
-	var likeIt = function(elem){
-		var oldClassList = elem.className.split(/\s+/);
-		var newClassList = '';
-		for (var i = 0; i < oldClassList.length; i++) {
-		    if (oldClassList[i] === 'btn-primary') { // LIKE
-		    	newClassList += 'btn-success ';
-		    	// TODO - Persistent like
-		    } else if (oldClassList[i] === 'btn-success') { // UNLIKE
-		    	newClassList += 'btn-primary ';
-		    	// TODO - Persistent unlike
-		    } else newClassList += oldClassList[i] + ' ';
-		}
-		elem.className = newClassList;
+	var likeIt = function(elem,id){
+		console.log("vota "+id);
+		$.get('/api/vota/'+id, function(data) {
+			console.log(data);
+			if(data.status === "OK" ) {
+				if(data.vot == true )
+					elem.className = "btn btn-success";
+				else
+					elem.className = "btn btn-primary";
+				//console.log(data.nvots);
+				$("#vots"+id).html(data.nvots);
+			} // status OK
+		}); // end get
 		return false;
 	};
 	var temaFet = function(id){
 		$.get('/api/fet/'+id, function( data ) {
 			console.log(data);
-		  if(data.staus === 'OK') $('#tema'+id).slideUp();
+			if(data.status === 'OK') $('#tema'+id).slideUp();
 		});
 	};
 </script>
