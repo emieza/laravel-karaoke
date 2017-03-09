@@ -5,19 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Llista;
 use App\Tema;
+use App\Vot;
 
 class TemaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -58,48 +49,101 @@ class TemaController extends Controller
         return redirect("/llista/$id/crea");
     }
 
+
+    /*
+        -------------
+        API Functions
+        -------------
+        Utilitzem funcions static per poder ser cridades
+        sense instanciar un objecte controller
+    */
+
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return json with status, id and tema_id
      */
-    public function show($id)
+    static public function nvots($id)
     {
         //
+        try {
+            $nvots = Vot::where("tema_id",$id)->get()->count();
+            return response()->json([
+                        "status" => "OK",
+                        "tema_id" => $id,
+                        "nvots" => $nvots,
+                    ]);
+        } catch (Exception $e) {
+            return response()->json([
+                        "status" => "ERROR",
+                        "message" => $e->getMessage()
+                    ]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    static public function fet($id)
     {
-        //
+        try {
+            $tema = Tema::find($id);
+            if( $tema ) {
+                $tema->fet = true;
+                $tema->save();
+                return response()->json([
+                        "status" => "OK",
+                        "fet" => true,
+                        "message" => "tema marcat com a fet"
+                    ]);
+            }
+            return response()->json([
+                    "status" => "ERROR",
+                    "message" => "tema no trobat"
+                ]);
+        }
+        catch (Exception $e) {
+            return response()->json([
+                        "status" => "ERROR",
+                        "message" => $e->getMessage()
+                    ]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    static public function vota(Request $request, $id) {
+        try {
+            $ip = $request->ip();
+            $tema = Tema::find($id);
+            // si ja esta votat aquest tema des d'aquesta ip no el deixem tornar a afegir
+            $votat = Vot::where("tema_id",$id)->where("ip",$ip)->get()->count();
+            if( $votat ) {
+                $votat = Vot::where("tema_id",$id)->where("ip",$ip)->delete();
+                $nvots = Vot::where("tema_id",$id)->get()->count();
+                return response()->json([
+                            "status" => "OK",
+                            "vot" => false,
+                            "nvots" => $nvots,
+                            "message" => "Estat actual = NO votat"
+                        ]);
+            }
+            // creem vot i l'afegim a la BD
+            $vot = new Vot();
+            $vot->tema_id = $tema->id;
+            $vot->ip = $ip;
+            $vot->comentaris = "";
+            $vot->save();
+            $nvots = Vot::where("tema_id",$id)->get()->count();
+            return response()->json([
+                        "status" => "OK",
+                        "vot" => true,
+                        "nvots" => $nvots,
+                        "message" => "Estat actual = votat"
+                    ]);
+        } catch (Exception $e) {
+            return response()->json([
+                        "status" => "ERROR",
+                        "message" => $e->getMessage()
+                    ]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
