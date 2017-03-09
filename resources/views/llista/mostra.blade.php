@@ -19,9 +19,7 @@
 			@if( $admin )
 				<button class="btn btn-warning" onclick="temaFet({{$tema->id}})">Fet!</button>
 				<br>
-				<!--div style="position:relative;height:0;padding-bottom:75.0%"><iframe src="{{$tema->embedurl()}}" width="480" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
-				pasted
-				<div style="position:relative;height:0;padding-bottom:75.0%"><iframe src="https://www.youtube.com/embed/CdfPDKgCOcQ?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div-->
+				<!--div style="position:relative;height:0;padding-bottom:75.0%"><iframe src="{{$tema->embedurl()}}" width="480" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div-->
 			@endif
 		</li>
 	@endforeach
@@ -29,6 +27,11 @@
 
 @if( ! $admin )
 <h2>Temes fets. Vota'ls!!</h2>
+
+<script>
+	// ens apuntem els temes fets per després actualitzar el nº de vots
+	var temes = Array();
+</script>
 <ul class="list-group">
 	@foreach ($fets as $tema)
 		<li class="list-group-item" style="visible">
@@ -36,6 +39,10 @@
 			<button class="btn btn-primary" onclick="likeIt(this,{{$tema->id}});"><span class="glyphicon glyphicon-thumbs-up"></span> M'agrada</button>
 			<span>Total vots: <span id="vots{{$tema->id}}"></span></span>
 		</li>
+		<script>
+			// afegim a la llista
+			temes.push({{$tema->id}});
+		</script>
 	@endforeach
 </ul>
 @endif
@@ -61,6 +68,14 @@
 			if(data.status === 'OK') $('#tema'+id).slideUp();
 		});
 	};
+
+	// actualitzem la llista (es crida al final de la carrega de la pagina)
+	for( i in temes ) {
+		$.get('/api/nvots/'+temes[i], function(data) {
+			console.log(data);
+			$('#vots'+data.tema_id).html(data.nvots);
+		});
+	}
 </script>
 
 @endsection

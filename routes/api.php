@@ -46,6 +46,22 @@ Route::get('/fet/{id}', function($id) {
 	}
 });
 
+Route::get('/nvots/{id}', function(Request $request, $id) {
+	try {
+		$nvots = Vot::where("tema_id",$id)->get()->count();
+		return response()->json([
+					"status" => "OK",
+					"tema_id" => $id,
+					"nvots" => $nvots,
+				]);
+	} catch (Exception $e) {
+		return response()->json([
+					"status" => "ERROR",
+					"message" => $e->getMessage()
+				]);
+	}
+});
+
 
 Route::get('/vota/{id}', function(Request $request, $id) {
 	try {
@@ -83,4 +99,5 @@ Route::get('/vota/{id}', function(Request $request, $id) {
 				]);
 	}
 });
+
 
