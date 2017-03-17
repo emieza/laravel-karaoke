@@ -4,7 +4,7 @@ Projecte per crear llistes de torns per a festes de karaoke. Sense usuaris, nom�
 ## Instal·lació
 Instal·lar Composer, Git i llibreries PHP
 ```sh
-$ sudo apt-get install composer git php7.0 php7.0-mbstring
+$ sudo apt-get install composer git php7.0 php7.0-mbstring php-sqlite3
 ```
 Descarregar el repo i instal·lar dependències:
 ```sh
